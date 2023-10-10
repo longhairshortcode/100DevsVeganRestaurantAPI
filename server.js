@@ -1,6 +1,10 @@
-const express = require('express')
-const app = express()
-const PORT = 8000
+const express = require('express');
+const app = express();
+const PORT = 8000;
+
+app.use(express.static(__dirname + '/public')); 
+
+app.use('/js', express.static(__dirname + '/public/js'));
 
 const veganrestaurants = {
   'sage' : {
@@ -34,7 +38,7 @@ app.get('/', (request, response) =>{
 }),
 
 app.get('/api/:name', (request, response) =>{
-  const restName = request.params.name.toLowerCase()
+  const restName = request.params.name.toLowerCase();
   if(veganrestaurants[restName]){
     response.json(veganrestaurants[restName])
   }else{
@@ -43,5 +47,5 @@ app.get('/api/:name', (request, response) =>{
 }),
 
 app.listen(PORT, () => {
-    console.log(`The server is running on port ${PORT}`)
+    console.log(`The server is running on port ${PORT}`);
 })
